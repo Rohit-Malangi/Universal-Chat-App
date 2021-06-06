@@ -2,10 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+// ignore: must_be_immutable
 class ImageInput extends StatefulWidget {
-  ImageInput(this._pickedImage, {Key? key}) : super(key: key);
+  const ImageInput(this._pickedImage, {Key? key}) : super(key: key);
 
-  void Function(File image) _pickedImage;
+  final void Function(File image) _pickedImage;
 
   @override
   _ImageInputState createState() => _ImageInputState();

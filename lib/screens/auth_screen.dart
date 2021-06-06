@@ -18,14 +18,14 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   final _auth = FirebaseAuth.instance;
   bool _isLoading = false;
-  void _submitAuthForm(
-    String email,
-    String password,
-    String username,
-    File image,
-    bool islogin,
-    BuildContext ctx,
-  ) async {
+  void _submitAuthForm({
+    required String email,
+    required String password,
+    required String username,
+    File? image,
+    required bool islogin,
+    required BuildContext ctx,
+  }) async {
     UserCredential authResult;
     try {
       setState(() {
@@ -43,7 +43,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .child('user_image')
             .child(authResult.user!.uid + '.jpg');
 
-        await ref.putFile(image).whenComplete(() => null);
+        await ref.putFile(image!).whenComplete(() => null);
 
         final url = await ref.getDownloadURL();
 

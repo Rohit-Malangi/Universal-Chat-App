@@ -6,15 +6,16 @@ import './image_picker.dart';
 
 class AuthForm extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  AuthForm(this._submitAutnForm, this._isLoading, {Key? key}) : super(key: key);
-  final void Function(
-    String email,
-    String password,
-    String username,
-    File image,
-    bool isLogin,
-    BuildContext ctx,
-  ) _submitAutnForm;
+  AuthForm(this.submitAuthForm, this._isLoading, {Key? key}) : super(key: key);
+
+  final void Function({
+    required BuildContext ctx,
+    required String email,
+    File? image,
+    required bool islogin,
+    required String password,
+    required String username,
+  }) submitAuthForm;
   final bool _isLoading;
   @override
   _AuthFormState createState() => _AuthFormState();
@@ -41,14 +42,24 @@ class _AuthFormState extends State<AuthForm> {
     }
     if (isvalid) {
       _formKey.currentState!.save();
-      widget._submitAutnForm(
-        _userEmail.trim(),
-        _passWord.trim(),
-        _userName.trim(),
-        _userImage!,
-        _isLogin,
-        context,
-      );
+      if (_userImage != null) {
+        widget.submitAuthForm(
+          email: _userEmail.trim(),
+          username: _userName.trim(),
+          password: _passWord.trim(),
+          islogin: _isLogin,
+          ctx: context,
+        );
+      } else {
+        widget.submitAuthForm(
+          email: _userEmail.trim(),
+          username: _userName.trim(),
+          password: _passWord.trim(),
+          islogin: _isLogin,
+          image: _userImage,
+          ctx: context,
+        );
+      }
     }
   }
 
